@@ -5,6 +5,7 @@ module Healthyr
     let(:transaction_id) { "38bb3fae1c76bbfb5c1c" }
     let(:starts) { 1363158057 }
     let(:ends) { 1363158067 }
+    let(:event_time) { Time.at(starts) }
     let(:args) { [event_type, starts, ends, transaction_id, payload] }
     let(:duration) { 10000.0 }
 
@@ -15,7 +16,7 @@ module Healthyr
       let(:event_type) { "sql.active_record" }
       let(:payload) { Hash[sql: sql_query] }
 
-      it { should == Hash[name: 'database', value: sql_query, time: {total: duration}]}
+      it { should == Hash[name: 'database', value: sql_query, time: {total: duration}, reported_at: event_time]}
     end
 
     context 'view event' do
@@ -23,7 +24,7 @@ module Healthyr
       let(:view_path) { 'users/index' }
       let(:payload) { Hash[virtual_path: view_path] }
 
-      it { should == Hash[name: 'view', value: view_path, time: {total: duration}]}
+      it { should == Hash[name: 'view', value: view_path, time: {total: duration}, reported_at: event_time]}
     end
 
     context 'controller event' do
@@ -32,7 +33,7 @@ module Healthyr
       let(:db_runtime) { 1.98 }
       let(:payload) { Hash[controller: 'UsersController', action: 'index', view_runtime: view_runtime, db_runtime: db_runtime] }
 
-      it { should == Hash[name: 'controller', value: 'UsersController#index', time: {total: duration, view: view_runtime, db: db_runtime}] }
+      it { should == Hash[name: 'controller', value: 'UsersController#index', time: {total: duration, view: view_runtime, db: db_runtime}, reported_at: event_time] }
     end
   end
 end

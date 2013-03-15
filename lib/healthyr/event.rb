@@ -7,7 +7,7 @@ module Healthyr
     end
 
     def to_hash
-      {time: {total: event.duration}}.tap do |hash|
+      {reported_at: Time.at(event.time), time: {total: event.duration}}.tap do |hash|
         if database?
           hash[:name] = 'database'
           hash[:value] = payload[:sql]

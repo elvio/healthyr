@@ -3,7 +3,8 @@ module Healthyr
     let(:event1) { stub("Event1") }
     let(:event2) { stub("Event2") }
 
-    before :all do
+    before do
+      EventPool.flush
       EventPool.add(event1)
       EventPool.add(event2)
     end

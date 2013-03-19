@@ -21,7 +21,7 @@ module Healthyr
 
   def self.monitor_url
     if ENV['HEALTHYR_MONITOR_URL']
-      URI.parse(ENV['HEALTHYR_MONITOR_URL'])
+      URI.parse(ENV['HEALTHYR_MONITOR_URL'] + "/events")
     else
       raise ArgumentError.new "Healthyr could not find environment variable: HEALTHYR_MONITOR_URL"
     end

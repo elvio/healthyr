@@ -1,24 +1,34 @@
 # Healthyr
-
-TODO: Write a gem description
+Healthyr is a performance monitor for Ruby on Rails applications. It takes advantage of [ActiveSupport::Notifications](http://api.rubyonrails.org/classes/ActiveSupport/Notifications.html) instruments to help you find slow parts of your app.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1. Add healthyr to your Rails Gemfile:
 
-    gem 'healthyr'
+```
+gem 'healthyr'
+```
 
-And then execute:
+2. Clone the application monitor
 
-    $ bundle
+```
+git clone https://github.com/elvio/healthyr_monitor
+```
+3. Start the monitor
 
-Or install it yourself as:
+```
+$ rackup config.ru --port=[PORT]
+```
 
-    $ gem install healthyr
+4. Start your Rails app with HEALTHYR\_MONITOR\_URL environment variable pointing to the monitor you have started
+
+```
+$ HEALTHYR_MONITOR_URL="http://[SERVER]:[PORT]" rails s
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+* Access the monitor URL to have access to charts and data about the slowest parts of your application (database, view and controller)
 
 ## Contributing
 
